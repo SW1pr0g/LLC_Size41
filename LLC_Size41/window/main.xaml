@@ -4,9 +4,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:LLC_Size41.window"
-        mc:Ignorable="d"
+        mc:Ignorable="d" FontFamily="Comic Sans MS"
         Title="Главное окно" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.25*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="1.8*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Label x:Name="NameLabel"  Content="ФИО: " FontSize="15"/>
+            <Label x:Name="RoleLabel" Content="Права пользователя: " FontSize="15"/>
+            <Button x:Name="ShowProduct" Content="Просмотр товаров" Visibility="Hidden"/>
+            <Button x:Name="MakeOrder" Content="Новый заказ" Visibility="Hidden"/>
+            <Button x:Name="ProductList" Content="Товары" Visibility="Hidden"/>
+            <Button x:Name="UsersList" Content="Пользователи" Visibility="Hidden"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <Label Content="ООО '41 Размер'" FontSize="25" Margin="15"
+                       HorizontalAlignment="Center"/>
+            <Image Source="/LLC_Size41;component/images/logo.png"
+                   Width="250"/>
+        </StackPanel>
+        <Button x:Name="exitUser" Grid.Row="1" Grid.ColumnSpan="2"
+                Margin="20" FontSize="20" FontWeight="Bold" Content="Выйти из учётной записи"
+                Click="exitUser_Click"/>
     </Grid>
 </Window>

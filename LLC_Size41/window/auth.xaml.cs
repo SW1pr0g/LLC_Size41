@@ -9,13 +9,17 @@ namespace LLC_Size41.window
         public auth()
         {
             InitializeComponent();
+            classes.Variables.authClosed = true;
         }
 
         private void auth_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("Вы действительно хотите закрыть приложение?",
+            if (classes.Variables.authClosed == false)
+            {
+                if (MessageBox.Show("Вы действительно хотите закрыть приложение?",
                 "Выход из приложения", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                e.Cancel = true;
+                    e.Cancel = true;
+            }            
         }
 
         private void LogBtn_Click(object sender, RoutedEventArgs e)
@@ -37,25 +41,29 @@ namespace LLC_Size41.window
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.HasRows)
                         {
-                            MessageBox.Show("Авторизирован пользователь - " + reader.GetString(0) + " " + reader.GetString(1)); 
+                            while (reader.Read())
+                            {
+                                classes.Variables.authClosed = true;
+                                new main(reader.GetString(0), reader.GetString(1)).Show();
+                                this.Close();                                
+                            }
                         }
-                    }
-                    
-                        
-                    
-                    //catch (NullReferenceException)
-                    //{
-                    //    MessageBox.Show("Ошибка! Неправильный логин или пароль.");
-                    //}                    
+                        else
+                        {
+                            MessageBox.Show("Ошибка! Неправильный логин или пароль.");
+                        }
+                    }                   
                 }
             }
         }
 
         private void GuestBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            classes.Variables.authClosed = true;
+            new main(String.Empty, "Гость").Show();
+            this.Close(); 
         }
     }
 }

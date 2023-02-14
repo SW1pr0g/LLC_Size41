@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:LLC_Size41.window"
-        mc:Ignorable="d" FontFamily="Comic Sans MS"
+        mc:Ignorable="d" FontFamily="Comic Sans MS" WindowStartupLocation="CenterScreen"
         Title="Главное окно" Height="450" Width="800">
     <Window.Resources>
         <Style TargetType="Button">
@@ -24,7 +24,8 @@
         <StackPanel>
             <Label x:Name="NameLabel"  Content="ФИО: " FontSize="15"/>
             <Label x:Name="RoleLabel" Content="Права пользователя: " FontSize="15"/>
-            <Button x:Name="ShowProduct" Content="Просмотр товаров" Visibility="Hidden"/>
+            <Button x:Name="ShowProduct" Content="Просмотр товаров" Visibility="Hidden"
+                    Click="ShowProduct_Click"/>
             <Button x:Name="MakeOrder" Content="Новый заказ" Visibility="Hidden"/>
             <Button x:Name="ProductList" Content="Товары" Visibility="Hidden"/>
             <Button x:Name="UsersList" Content="Пользователи" Visibility="Hidden"/>

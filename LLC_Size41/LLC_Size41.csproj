@@ -72,11 +72,18 @@
     <Compile Include="window\main.xaml.cs">
       <DependentUpon>main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="window\showproduct.xaml.cs">
+      <DependentUpon>showproduct.xaml</DependentUpon>
+    </Compile>
     <Page Include="window\auth.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="window\main.xaml" />
+    <Page Include="window\showproduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

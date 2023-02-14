@@ -59,7 +59,9 @@ namespace LLC_Size41.window
                             while (reader.Read())
                             {
                                 classes.Variables.authClosed = true;
-                                new main(reader.GetString(0), reader.GetString(1)).Show();
+                                classes.Variables.name = reader.GetString(0);
+                                classes.Variables.role = reader.GetString(1);
+                                new main().Show();
                                 this.Close();
                             }
                         }
@@ -80,7 +82,9 @@ namespace LLC_Size41.window
         private void GuestBtn_Click(object sender, RoutedEventArgs e)
         {
             classes.Variables.authClosed = true;
-            new main(String.Empty, "Гость").Show();
+            classes.Variables.name = String.Empty;
+            classes.Variables.role = "Гость";
+            new main().Show();
             this.Close(); 
         }
         private void PutCapthaText()

@@ -4,13 +4,11 @@ namespace LLC_Size41.window
 {
     public partial class main : Window
     {
-        string role, name;
-        public main(string name, string role)
+        public main()
         {
             InitializeComponent();
-            LoadUserData(name, role);
-            checkPrivilegies();
-            
+            LoadUserData();
+            checkPrivilegies();           
             
         }
 
@@ -26,7 +24,7 @@ namespace LLC_Size41.window
         }
         private void checkPrivilegies()
         {
-            switch (role)
+            switch (classes.Variables.role)
             {
                 case "Менеджер":
                     ShowProduct.Visibility = Visibility.Visible;
@@ -45,12 +43,16 @@ namespace LLC_Size41.window
                     break;
             }
         }
-        private void LoadUserData(string nameStr, string roleStr)
+        private void LoadUserData()
         {
-            name = nameStr;
-            role = roleStr;
-            NameLabel.Content += name;
-            RoleLabel.Content += role;
+            NameLabel.Content += classes.Variables.name;
+            RoleLabel.Content += classes.Variables.role;
+        }
+
+        private void ShowProduct_Click(object sender, RoutedEventArgs e)
+        {
+            new showproduct().Show();
+            this.Hide();
         }
     }
 }

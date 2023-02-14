@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using MySql.Data.MySqlClient;
+using System.Threading;
 
 namespace LLC_Size41.window
 {
     public partial class auth : Window
     {
+        bool _capthaEnabled = false;
+        string capthaValue = String.Empty;
         public auth()
         {
             InitializeComponent();
@@ -41,19 +45,33 @@ namespace LLC_Size41.window
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
+                        if (_capthaEnabled == true && CapthaText.Text != capthaValue)
+                        {
+                            MessageBox.Show("Ошибка! Неверный ввод проверки CAPTHA. Система заблокирована на 10 секунд.", "Ошибка ввода CAPTHA", 
+                                MessageBoxButton.OK, MessageBoxImage.Stop);
+                            Thread.Sleep(10000);
+                            PutCapthaText();
+                            CapthaText.Clear();
+                            return;
+                        }
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
                                 classes.Variables.authClosed = true;
                                 new main(reader.GetString(0), reader.GetString(1)).Show();
-                                this.Close();                                
+                                this.Close();
                             }
                         }
                         else
                         {
                             MessageBox.Show("Ошибка! Неправильный логин или пароль.");
+                            Captha.Visibility = Visibility.Visible;
+                            this.Height = 600;
+                            _capthaEnabled = true;
+                            PutCapthaText();
                         }
+                                                
                     }                   
                 }
             }
@@ -64,6 +82,39 @@ namespace LLC_Size41.window
             classes.Variables.authClosed = true;
             new main(String.Empty, "Гость").Show();
             this.Close(); 
+        }
+        private void PutCapthaText()
+        {
+            Random rnd = new Random((int)DateTime.Now.Ticks);
+            int value = rnd.Next(1, 5);
+            switch (value)
+            {
+                case 1:
+                    var uriSource = new Uri(@"/LLC_Size41;component/images/captha/captha1.png", UriKind.Relative);
+                    CapthaImg.Source = new BitmapImage(uriSource);
+                    capthaValue = "4K[j";
+                    break;
+                case 2:
+                    var uriSource1 = new Uri(@"/LLC_Size41;component/images/captha/captha2.png", UriKind.Relative);
+                    CapthaImg.Source = new BitmapImage(uriSource1);
+                    capthaValue = "im4/";
+                    break;
+                case 3:
+                    var uriSource2 = new Uri(@"/LLC_Size41;component/images/captha/captha3.png", UriKind.Relative);
+                    CapthaImg.Source = new BitmapImage(uriSource2);
+                    capthaValue = "][qc";
+                    break;
+                case 4:
+                    var uriSource3 = new Uri(@"/LLC_Size41;component/images/captha/captha4.png", UriKind.Relative);
+                    CapthaImg.Source = new BitmapImage(uriSource3);
+                    capthaValue = "rkp(";
+                    break;
+                default:
+                    var uriSource4 = new Uri(@"/LLC_Size41;component/images/captha/captha1.png", UriKind.Relative);
+                    CapthaImg.Source = new BitmapImage(uriSource4);
+                    capthaValue = "4K[j";
+                    break;
+            }
         }
     }
 }

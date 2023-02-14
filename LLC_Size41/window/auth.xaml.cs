@@ -30,21 +30,25 @@ namespace LLC_Size41.window
                 catch (MySqlException)
                 {
                     MessageBox.Show("Ошибка подключения к БД!");
-                }                
-                string sql = String.Format("SELECT CONCAT(user_surname, ' ', SUBSTRING(user_name, 1, 1), '.', SUBSTRING(user_patronymic, 1, 1),), user_role FROM user WHERE user_login='{0}' AND user_password='{1}';", LoginBox.Text, PasswordBox.Password);
+                }
+                string sql = String.Format("SELECT CONCAT(user_surname, ' ', SUBSTRING(user_name, 1, 1), '.', SUBSTRING(user_patronymic, 1, 1), '.'), (SELECT role.role_name from role WHERE role.role_id = user.user_role) FROM user WHERE user_login='{0}' AND user_password='{1}';", LoginBox.Text, PasswordBox.Password);
 
-                string name = string.Empty;
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
-                    try
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        name = cmd.ExecuteScalar().ToString();
-                        MessageBox.Show("Авторизирован пользователь - " + name);
+                        while (reader.Read())
+                        {
+                            MessageBox.Show("Авторизирован пользователь - " + reader.GetString(0) + " " + reader.GetString(1)); 
+                        }
                     }
-                    catch (NullReferenceException)
-                    {
-                        MessageBox.Show("Ошибка! Неправильный логин или пароль.");
-                    }                    
+                    
+                        
+                    
+                    //catch (NullReferenceException)
+                    //{
+                    //    MessageBox.Show("Ошибка! Неправильный логин или пароль.");
+                    //}                    
                 }
             }
         }

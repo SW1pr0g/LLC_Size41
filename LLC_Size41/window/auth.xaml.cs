@@ -39,7 +39,7 @@ namespace LLC_Size41.window
                 {
                     MessageBox.Show("Ошибка подключения к БД!");
                 }
-                string sql = String.Format("SELECT CONCAT(user_surname, ' ', SUBSTRING(user_name, 1, 1), '.', SUBSTRING(user_patronymic, 1, 1), '.'), (SELECT role.role_name from role WHERE role.role_id = user.user_role) FROM user WHERE user_login='{0}' AND user_password='{1}';", LoginBox.Text, PasswordBox.Password);
+                string sql = String.Format("SELECT CONCAT(user_surname, ' ', SUBSTRING(user_name, 1, 1), '.', SUBSTRING(user_patronymic, 1, 1), '.'), user_role FROM user WHERE user_login='{0}' AND user_password='{1}';", LoginBox.Text, PasswordBox.Password);
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {

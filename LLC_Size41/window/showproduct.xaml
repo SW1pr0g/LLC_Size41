@@ -23,10 +23,19 @@
         
         <ComboBox x:Name="FilterBox" Grid.Column="1"
                   Margin="5 15" FontSize="20" HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="SortBox" Grid.Column="2"
+                 VerticalContentAlignment="Center">
+            <ComboBoxItem Content="Нет фильтра" IsSelected="True" LostFocus="NoFilter_OnSelected"/>
+            <ComboBoxItem Content="0 - 9,99%" LostFocus="NoFilter_OnSelected"/>
+            <ComboBoxItem Content="10 - 14,99%" LostFocus="NoFilter_OnSelected"/>
+            <ComboBoxItem Content="15% и более" LostFocus="NoFilter_OnSelected"/>
+        </ComboBox>
+        <ComboBox x:Name="SortBox" Grid.Column="2" IsReadOnly="True"
                   Margin="5 15" FontSize="20" HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center"/>
+                 VerticalContentAlignment="Center">
+            <ComboBoxItem Content="Нет сортировки" IsSelected="True" LostFocus="NoFilter_OnSelected"/>
+            <ComboBoxItem Content="По возрастанию" LostFocus="NoFilter_OnSelected"/>
+            <ComboBoxItem Content="По убыванию" LostFocus="NoFilter_OnSelected"/>
+        </ComboBox>
         
         
         <DataGrid x:Name="productsGrid" Grid.Row="1" Grid.ColumnSpan="3"

@@ -52,7 +52,13 @@ namespace LLC_Size41.window
         private void ShowProduct_Click(object sender, RoutedEventArgs e)
         {
             new showproduct().Show();
-            this.Hide();
+            this.Close();
+        }
+
+        private void ProductList_OnClick(object sender, RoutedEventArgs e)
+        {
+            new product().Show();
+            this.Close();
         }
     }
 }

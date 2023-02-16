@@ -118,12 +118,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
+    <Resource Include="images\product\picture.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\picture.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\captha\captha1.png" />
@@ -132,16 +132,36 @@
     <Resource Include="images\captha\captha4.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\product\B320R5.jpg" />
-    <Resource Include="images\product\D329H3.jpg" />
-    <Resource Include="images\product\D572U8.jpg" />
-    <Resource Include="images\product\F572H7.jpg" />
-    <Resource Include="images\product\F635R4.jpg" />
-    <Resource Include="images\product\G432E4.jpg" />
-    <Resource Include="images\product\G783F5.jpg" />
-    <Resource Include="images\product\H782T5.jpg" />
-    <Resource Include="images\product\J384T6.jpg" />
-    <Resource Include="images\product\А112Т4.jpg" />
+    <Resource Include="images\product\B320R5.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\product\D329H3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\product\D572U8.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\product\F572H7.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\product\F635R4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\product\G432E4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\product\G783F5.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\product\H782T5.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\product\J384T6.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\product\А112Т4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

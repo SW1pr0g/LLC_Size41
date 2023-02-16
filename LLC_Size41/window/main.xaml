@@ -27,7 +27,8 @@
             <Button x:Name="ShowProduct" Content="Просмотр товаров" Visibility="Hidden"
                     Click="ShowProduct_Click"/>
             <Button x:Name="MakeOrder" Content="Новый заказ" Visibility="Hidden"/>
-            <Button x:Name="ProductList" Content="Товары" Visibility="Hidden"/>
+            <Button x:Name="ProductList" Content="Товары" Visibility="Hidden"
+                    Click="ProductList_OnClick"/>
             <Button x:Name="UsersList" Content="Пользователи" Visibility="Hidden"/>
         </StackPanel>
         <StackPanel Grid.Column="1">

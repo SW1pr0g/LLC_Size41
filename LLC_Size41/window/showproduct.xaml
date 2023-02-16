@@ -61,8 +61,11 @@
                      VerticalContentAlignment="Center"/>
         </StackPanel>
         
-        <Image x:Name="ProductImage" Grid.Column="2" MaxWidth="150" MaxHeight="150" VerticalAlignment="Top"
-               Source="/images/picture.png" Margin="0 25 0 0"/>
+        <Border Grid.Column="2" Width="160" Height="160" 
+                Margin="10" VerticalAlignment="Top">
+            <Image x:Name="ProductImage" 
+                   Source="/images/product/picture.png"/>
+        </Border>
         
         
         

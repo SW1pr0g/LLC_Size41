@@ -26,10 +26,8 @@
             <Label x:Name="RoleLabel" Content="Права пользователя: " FontSize="15"/>
             <Button x:Name="ShowProduct" Content="Просмотр товаров" Visibility="Hidden"
                     Click="ShowProduct_Click"/>
-            <Button x:Name="MakeOrder" Content="Новый заказ" Visibility="Hidden"/>
             <Button x:Name="ProductList" Content="Товары" Visibility="Hidden"
                     Click="ProductList_OnClick"/>
-            <Button x:Name="UsersList" Content="Пользователи" Visibility="Hidden"/>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <Label Content="ООО '41 Размер'" FontSize="25" Margin="15"
@@ -37,6 +35,9 @@
             <Image Source="/images/logo.png"
                    Width="250"/>
         </StackPanel>
+        <Button x:Name="TrashBtn" Visibility="Hidden"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Content="Корзина" Click="TrashBtn_OnClick"/>
         <Button x:Name="exitUser" Grid.Row="1" Grid.ColumnSpan="2"
                 Margin="20" FontSize="20" FontWeight="Bold" Content="Выйти из учётной записи"
                 Click="exitUser_Click"/>

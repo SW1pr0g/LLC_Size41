@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Data;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using LLC_Size41.classes;
 using MySql.Data.MySqlClient;
 
 namespace LLC_Size41.window
 {
     public partial class showproduct : Window
     {
+        private string photoname = String.Empty;
         public showproduct()
         {
             InitializeComponent();
@@ -85,7 +88,36 @@ namespace LLC_Size41.window
             productsGrid.Columns[5].Width = DataGridLength.Auto;
         }
 
-        private void ProductsGrid_OnMouseUp(object sender, MouseButtonEventArgs e)
+        private void AddToTrash_OnClick(object sender, RoutedEventArgs e)
+        {
+            ProductsGrid_OnMouseLeftButtonUp(null, null);
+            var a = Variables.trash.Find(x => x.ArticleNum == ArticleBox.Text);
+            if (a != null)
+            {
+                if (Convert.ToInt32(QuantityBox.Text) > a.Count)
+                {
+                    int i = Variables.trash.IndexOf(a);
+                    Variables.trash[i] = new TrashItem { ArticleNum = ArticleBox.Text, Price = Convert.ToDouble(PriceBox.Text), Discount = Convert.ToInt32(DiscountBox.Text), Manufacturer = ManufacturerBox.Text, Count = a.Count+1, };
+                    MessageBox.Show(String.Format("Товар под артикулом {0} добавлен в корзину!", ArticleBox.Text));
+                }
+                else
+                    MessageBox.Show("На складе нет больше товара!");
+            }
+            else
+            {
+                if (Convert.ToInt32(QuantityBox.Text) > 1)
+                {
+                    Variables.trash.Add(new TrashItem { ArticleNum = ArticleBox.Text, Price = Convert.ToDouble(PriceBox.Text), Discount = Convert.ToInt32(DiscountBox.Text), Manufacturer = ManufacturerBox.Text, Count = 1, });
+                    MessageBox.Show(String.Format("Товар под артикулом {0} добавлен в корзину!", ArticleBox.Text));
+                    classes.Variables.trashVisible = true;
+                }
+                else
+                    MessageBox.Show("На складе нет больше товара!");
+            }
+
+        }
+
+        private void ProductsGrid_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             using (MySqlConnection conn = new MySqlConnection(classes.Variables.ConnStr))
             {
@@ -111,12 +143,12 @@ namespace LLC_Size41.window
                             DescBox.Text = reader.GetString(8);
                             if (reader.GetString(9) != String.Empty)
                             {
-                                var uriSource = new Uri("/LLC_Size41;component/images/product/" + reader.GetString(9), UriKind.Relative);
+                                var uriSource = new Uri(Directory.GetCurrentDirectory() + "\\images\\product\\" + reader.GetString(9), UriKind.Absolute);
                                 ProductImage.Source = new BitmapImage(uriSource);
                             }
                             else
                             {
-                                var uriSource = new Uri("/LLC_Size41;component/images/picture.png", UriKind.Relative);
+                                var uriSource = new Uri(Directory.GetCurrentDirectory() + "\\images\\product\\" + reader.GetString(9), UriKind.Absolute);
                                 ProductImage.Source = new BitmapImage(uriSource);
                             }
                         }

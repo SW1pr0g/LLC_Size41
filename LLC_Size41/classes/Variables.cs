@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LLC_Size41.classes
 {
@@ -8,6 +9,10 @@ namespace LLC_Size41.classes
         public static bool authClosed = true;
         public static bool mainClosed = true;
         public static string role = String.Empty;
+        public static string surname = String.Empty;
         public static string name = String.Empty;
+        public static string patronymic = String.Empty;
+        public static List<TrashItem> trash = new List<TrashItem>();
+        public static bool trashVisible = false;
     }
 }

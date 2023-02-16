@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace LLC_Size41.window
 {
@@ -28,25 +29,34 @@ namespace LLC_Size41.window
             {
                 case "Менеджер":
                     ShowProduct.Visibility = Visibility.Visible;
-                    MakeOrder.Visibility = Visibility.Visible;
                     ProductList.Visibility = Visibility.Visible;
                     break;
                 case "Администратор":
-                    ShowProduct.Visibility = Visibility.Visible;
-                    MakeOrder.Visibility = Visibility.Visible;
                     ProductList.Visibility = Visibility.Visible;
-                    UsersList.Visibility = Visibility.Visible;
                     break;
                 default:
                     ShowProduct.Visibility = Visibility.Visible;
-                    MakeOrder.Visibility = Visibility.Visible;
                     break;
             }
+
+            if (classes.Variables.trashVisible == true)
+                TrashBtn.Visibility = Visibility.Visible;
+            else
+                TrashBtn.Visibility = Visibility.Hidden;
         }
         private void LoadUserData()
         {
-            NameLabel.Content += classes.Variables.name;
-            RoleLabel.Content += classes.Variables.role;
+            try
+            {
+                NameLabel.Content += classes.Variables.surname + " " + classes.Variables.name[0] + "." +
+                                     classes.Variables.patronymic[0] + ".";
+                RoleLabel.Content += classes.Variables.role;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                NameLabel.Content += String.Empty;
+                RoleLabel.Content += "Гость";
+            }
         }
 
         private void ShowProduct_Click(object sender, RoutedEventArgs e)
@@ -58,6 +68,12 @@ namespace LLC_Size41.window
         private void ProductList_OnClick(object sender, RoutedEventArgs e)
         {
             new product().Show();
+            this.Close();
+        }
+
+        private void TrashBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            new trash().Show();
             this.Close();
         }
     }

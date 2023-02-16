@@ -14,6 +14,7 @@ namespace LLC_Size41.window
         {
             InitializeComponent();
             classes.Variables.authClosed = true;
+            classes.Variables.trash.Clear();
         }
 
         private void auth_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -39,7 +40,7 @@ namespace LLC_Size41.window
                 {
                     MessageBox.Show("Ошибка подключения к БД!");
                 }
-                string sql = String.Format("SELECT CONCAT(user_surname, ' ', SUBSTRING(user_name, 1, 1), '.', SUBSTRING(user_patronymic, 1, 1), '.'), user_role FROM user WHERE user_login='{0}' AND user_password='{1}';", LoginBox.Text, PasswordBox.Password);
+                string sql = String.Format("SELECT user_surname, user_name, user_patronymic, user_role FROM user WHERE user_login='{0}' AND user_password='{1}';", LoginBox.Text, PasswordBox.Password);
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
@@ -59,8 +60,10 @@ namespace LLC_Size41.window
                             while (reader.Read())
                             {
                                 classes.Variables.authClosed = true;
-                                classes.Variables.name = reader.GetString(0);
-                                classes.Variables.role = reader.GetString(1);
+                                classes.Variables.surname = reader.GetString(0);
+                                classes.Variables.name = reader.GetString(1);
+                                classes.Variables.patronymic = reader.GetString(2);
+                                classes.Variables.role = reader.GetString(3);
                                 new main().Show();
                                 this.Close();
                             }

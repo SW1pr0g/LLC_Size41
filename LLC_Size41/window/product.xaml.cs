@@ -208,7 +208,8 @@ namespace LLC_Size41.window
                     }
                     catch (MySqlException)
                     {
-                        MessageBox.Show("Ошибка! Найдено похожее имя артикула, описания.");
+                        MessageBox.Show("Ошибка! Найдено похожее имя артикула, описания.", "Проверка заполнения", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
                         return;
                     }
                     FillData();
@@ -242,7 +243,16 @@ namespace LLC_Size41.window
                         DiscountBox.Text, QuantityBox.Text, DescBox.Text, image_name);
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
-                        cmd.ExecuteNonQuery();
+                        try
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                        catch (MySqlException)
+                        {
+                            MessageBox.Show("Ошибка! Найдено похожее имя артикула, описания.", "Проверка заполнения", MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+                            return;
+                        }
                         FillData();
                         if (image_name != "picture.png")
                             File.Copy(image_path, Directory.GetCurrentDirectory() + "\\images\\product\\" + image_name, true);

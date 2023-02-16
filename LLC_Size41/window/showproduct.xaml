@@ -93,7 +93,13 @@
         
         <DataGrid x:Name="productsGrid" Grid.Row="2" Grid.ColumnSpan="3"
                   Margin="5 10" FontSize="15" IsReadOnly="True" ColumnWidth="*"
-                  Loaded="ProductsGrid_OnLoaded" MouseUp="ProductsGrid_OnMouseUp"/>
+                  Loaded="ProductsGrid_OnLoaded" MouseLeftButtonUp="ProductsGrid_OnMouseLeftButtonUp">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="AddToTrash" Header="Добавить к заказу" Click="AddToTrash_OnClick"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
         <Label Grid.Row="3" x:Name="CountGrid" FontSize="20"
                Content="Количество записей: " VerticalAlignment="Center"/>
         <Button x:Name="BackBtn" Content="В главное меню" Margin="20" 

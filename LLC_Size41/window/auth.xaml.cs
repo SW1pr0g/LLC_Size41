@@ -94,7 +94,7 @@ namespace LLC_Size41.window
             switch (value)
             {
                 case 1:
-                    var uriSource = new Uri(@"/LLC_Size41;component/images/captha/captha1.png", UriKind.Relative);
+                    var uriSource = new Uri(@"/LLC_Size41;component/images/product/captha1.png", UriKind.Relative);
                     CapthaImg.Source = new BitmapImage(uriSource);
                     capthaValue = "4K[j";
                     break;

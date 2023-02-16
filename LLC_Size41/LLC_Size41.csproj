@@ -72,6 +72,9 @@
     <Compile Include="window\main.xaml.cs">
       <DependentUpon>main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="window\product.xaml.cs">
+      <DependentUpon>product.xaml</DependentUpon>
+    </Compile>
     <Compile Include="window\showproduct.xaml.cs">
       <DependentUpon>showproduct.xaml</DependentUpon>
     </Compile>
@@ -80,6 +83,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="window\main.xaml" />
+    <Page Include="window\product.xaml" />
     <Page Include="window\showproduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -118,12 +122,26 @@
   <ItemGroup>
     <Resource Include="images\logo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="images\picture.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="images\captha\captha1.png" />
     <Resource Include="images\captha\captha2.png" />
     <Resource Include="images\captha\captha3.png" />
     <Resource Include="images\captha\captha4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\product\B320R5.jpg" />
+    <Resource Include="images\product\D329H3.jpg" />
+    <Resource Include="images\product\D572U8.jpg" />
+    <Resource Include="images\product\F572H7.jpg" />
+    <Resource Include="images\product\F635R4.jpg" />
+    <Resource Include="images\product\G432E4.jpg" />
+    <Resource Include="images\product\G783F5.jpg" />
+    <Resource Include="images\product\H782T5.jpg" />
+    <Resource Include="images\product\J384T6.jpg" />
+    <Resource Include="images\product\А112Т4.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

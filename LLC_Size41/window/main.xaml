@@ -33,7 +33,7 @@
         <StackPanel Grid.Column="1">
             <Label Content="ООО '41 Размер'" FontSize="25" Margin="15"
                        HorizontalAlignment="Center"/>
-            <Image Source="/LLC_Size41;component/images/logo.png"
+            <Image Source="/images/logo.png"
                    Width="250"/>
         </StackPanel>
         <Button x:Name="exitUser" Grid.Row="1" Grid.ColumnSpan="2"

@@ -23,7 +23,7 @@
         <Label Content="ООО '41 Размер'"
                FontSize="30" HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
-        <Image Source="/LLC_Size41;component/images/logo.png"
+        <Image Source="/images/logo.png"
         		Width="125" Grid.Column="1"/>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="10">            
             <TextBox x:Name="LoginBox" Grid.Row="1"

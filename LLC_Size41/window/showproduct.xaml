@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Просмотр товаров" FontFamily="Comic Sans MS" 
         WindowStartupLocation="CenterScreen"
-        Height="600" Width="800">
+        Height="800" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -11,38 +11,89 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="3.5*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-         
-        <TextBox x:Name="SearchBox" Margin="10 15"
+        
+        <StackPanel Margin="5 10" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" Margin="0 5">
+                <Label Content="Категория" FontSize="20"/>
+                <TextBox x:Name="CategoryBox" Width="200" FontSize="20" HorizontalContentAlignment="Center"
+                          IsEnabled="False" Margin="54 0 0 0" VerticalContentAlignment="Center"/>
+                <Label Content="Артикул" FontSize="20" Margin="20 0 0 0"/>
+                <TextBox x:Name="ArticleBox" Width="150" FontSize="20" HorizontalContentAlignment="Center"
+                          IsEnabled="False" Margin="0 0 0 0" VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 5">
+                <Label Content="Наименование" FontSize="20"/>
+                <TextBox x:Name="NameBox" Width="200" Margin="10 0"
+                         FontSize="20" HorizontalContentAlignment="Center"
+                          IsEnabled="False" VerticalContentAlignment="Center"/>
+                <Label Content="Скидка" FontSize="20" Margin="10 0 0 0"/>
+                <TextBox x:Name="DiscountBox" Width="150" FontSize="20" HorizontalContentAlignment="Center"
+                         IsEnabled="False" Margin="14 0 0 0" VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 5">
+                <Label Content="Стоимость" FontSize="20"/>
+                <TextBox x:Name="PriceBox" Width="120" FontSize="20" HorizontalContentAlignment="Center"
+                         IsEnabled="False" Margin="50 0 0 0" VerticalContentAlignment="Center"/>
+                <Label Content="Количество" FontSize="20" Margin="100 0 0 0"/>
+                <TextBox x:Name="QuantityBox" Width="50" FontSize="20" HorizontalContentAlignment="Center"
+                         IsEnabled="False" Margin="14 0 0 0" VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 5">
+                <Label Content="Производитель" FontSize="20"/>
+                <TextBox x:Name="ManufacturerBox" Width="200" FontSize="20" HorizontalContentAlignment="Center"
+                         IsEnabled="False" VerticalContentAlignment="Center"/>
+                <Label Content="Поставщик" FontSize="20" Margin="18 0 0 0"/>
+                <TextBox x:Name="SupplierBox" Width="150" FontSize="20" HorizontalContentAlignment="Center"
+                         IsEnabled="False" Margin="14 0 0 0" VerticalContentAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Margin="5 10" VerticalAlignment="Bottom"
+                    Grid.ColumnSpan="3" > 
+            <Label Content="Описание" FontSize="20"/>
+            <TextBox x:Name="DescBox"  FontSize="20" HorizontalContentAlignment="Center"
+                     IsEnabled="False" Width="875"
+                     VerticalContentAlignment="Center"/>
+        </StackPanel>
+        
+        <Image x:Name="ProductImage" Grid.Column="2" MaxWidth="150" MaxHeight="150" VerticalAlignment="Top"
+               Source="/images/picture.png" Margin="0 25 0 0"/>
+        
+        
+        
+        <TextBox Grid.Row="1" x:Name="SearchBox" Margin="10 15"
                  FontSize="20" HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center" 
                  TextChanged="SearchBox_TextChanged"/>
         
-        <ComboBox x:Name="FilterBox" Grid.Column="1"
-                  Margin="5 15" FontSize="20" HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center">
+        <ComboBox Grid.Row="1" x:Name="FilterBox" Grid.Column="1"
+                              Margin="5 15" FontSize="20" HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center">
             <ComboBoxItem Content="Нет фильтра" IsSelected="True" LostFocus="NoFilter_OnSelected"/>
             <ComboBoxItem Content="0 - 9,99%" LostFocus="NoFilter_OnSelected"/>
             <ComboBoxItem Content="10 - 14,99%" LostFocus="NoFilter_OnSelected"/>
             <ComboBoxItem Content="15% и более" LostFocus="NoFilter_OnSelected"/>
         </ComboBox>
-        <ComboBox x:Name="SortBox" Grid.Column="2" IsReadOnly="True"
-                  Margin="5 15" FontSize="20" HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center">
+        <ComboBox Grid.Row="1" x:Name="SortBox" Grid.Column="2" IsReadOnly="True"
+                              Margin="5 15" FontSize="20" HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center">
             <ComboBoxItem Content="Нет сортировки" IsSelected="True" LostFocus="NoFilter_OnSelected"/>
             <ComboBoxItem Content="По возрастанию" LostFocus="NoFilter_OnSelected"/>
             <ComboBoxItem Content="По убыванию" LostFocus="NoFilter_OnSelected"/>
         </ComboBox>
         
         
-        <DataGrid x:Name="productsGrid" Grid.Row="1" Grid.ColumnSpan="3"
-                  Margin="5 10" FontSize="20" IsReadOnly="True"/>
-
-
+        <DataGrid x:Name="productsGrid" Grid.Row="2" Grid.ColumnSpan="3"
+                  Margin="5 10" FontSize="15" IsReadOnly="True" ColumnWidth="*"
+                  Loaded="ProductsGrid_OnLoaded" MouseUp="ProductsGrid_OnMouseUp"/>
+        <Label Grid.Row="3" x:Name="CountGrid" FontSize="20"
+               Content="Количество записей: " VerticalAlignment="Center"/>
         <Button x:Name="BackBtn" Content="В главное меню" Margin="20" 
-                Click="BackBtn_Click" Grid.Column="2" Grid.Row="2"/>
+                Click="BackBtn_Click" Grid.Column="2" Grid.Row="3"/>
     </Grid>
 </Window>

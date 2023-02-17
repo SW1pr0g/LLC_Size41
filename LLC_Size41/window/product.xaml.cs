@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Windows;
@@ -21,11 +22,13 @@ namespace LLC_Size41.window
         {
             InitializeComponent();
             FillData();
+            classes.Variables.productClosed = false;
         }
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {            
+            classes.Variables.productClosed = true;
             new main().Show();
-            this.Close();
+            Close();
         }
         private void FillData()
         {
@@ -342,6 +345,18 @@ namespace LLC_Size41.window
             }
 
             return res;
+        }
+
+        private void Product_OnClosing(object sender, CancelEventArgs e)
+        {
+            if (classes.Variables.productClosed == false)
+            {
+                if (MessageBox.Show("Вы действительно хотите закрыть приложение?",
+                        "Выход из приложения", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    e.Cancel = true;
+                else
+                    classes.Variables.productClosed = true;
+            } 
         }
     }
 }

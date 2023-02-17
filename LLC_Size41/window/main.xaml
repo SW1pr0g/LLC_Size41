@@ -30,7 +30,7 @@
             <Button x:Name="ProductList" Content="Товары" Visibility="Hidden"
                     Click="ProductList_OnClick"/>
             <Button x:Name="OrderList" Content="Заказы" Visibility="Hidden"
-                    Click="ProductList_OnClick"  />
+                    Click="OrderList_OnClick"  />
             <Button x:Name="SpecialAdds" Content="Специальные возможности" Visibility="Hidden"
                     Click="ProductList_OnClick"/>
         </StackPanel>

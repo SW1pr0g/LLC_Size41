@@ -162,7 +162,7 @@ namespace LLC_Size41.window
 
         private void Showproduct_OnClosing(object sender, CancelEventArgs e)
         {
-            if (classes.Variables.showproductClosed == false)
+            if (Variables.showproductClosed == false)
             {
                 if (MessageBox.Show("Вы действительно хотите закрыть приложение?",
                         "Выход из приложения", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)

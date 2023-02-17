@@ -97,5 +97,12 @@ namespace LLC_Size41.window
                     classes.Variables.mainClosed = true;
             } 
         }
+
+        private void OrderList_OnClick(object sender, RoutedEventArgs e)
+        {
+            classes.Variables.mainClosed = true;
+            new order().Show();
+            Close();
+        }
     }
 }

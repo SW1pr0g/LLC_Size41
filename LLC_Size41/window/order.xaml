@@ -3,10 +3,74 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:LLC_Size41.window"
+        xmlns:local="clr-namespace:LLC_Size41"
+        xmlns:classes="clr-namespace:LLC_Size41.classes"
+
         mc:Ignorable="d"
-        Title="order" Height="450" Width="800">
-    <Grid>
+        Title="Товары" FontFamily="Comic Sans MS" 
+        WindowStartupLocation="CenterScreen"
+        Height="610" Width="1000" 
+        Closing="Order_OnClosing">
+    <Window.Resources>
+        <classes:StatusToColorConverter x:Key="AgeToColorConverter"/>
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="{Binding OrderStatus, Converter={StaticResource AgeToColorConverter}}" />
+        </Style>
+    </Window.Resources>
+    <Grid ShowGridLines="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="3.7*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         
+        <DataGrid x:Name="ordersGrid" Grid.Row="0" Grid.ColumnSpan="3"
+                  Margin="5 10" FontSize="15" IsReadOnly="True" ColumnWidth="*"
+                  Loaded="OrdersGrid_OnLoaded" MouseLeftButtonUp="OrdersGrid_OnMouseLeftButtonUp"/>
+        
+        <StackPanel Grid.Row="1" Margin="5 10" Grid.ColumnSpan="3">
+            <Label x:Name="CountGrid" FontSize="20"
+                   Content="Количество записей: " VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <Label FontSize="20"
+                           Content="Сортировка: " VerticalAlignment="Center"/>
+                    <ComboBox x:Name="SortBox" Width="325" FontSize="20" HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center" SelectedIndex="0">
+                        <ComboBoxItem Content="Нет сортировки" LostFocus="SortBoxItem_OnLostFocus"/>
+                        <ComboBoxItem Content="Статус заказа(сначала завершённые)" LostFocus="SortBoxItem_OnLostFocus"/>
+                        <ComboBoxItem Content="Статус заказа(сначала новые)" LostFocus="SortBoxItem_OnLostFocus"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="135 5 0 0">
+                    <Label FontSize="20"
+                           Content="Статус заказа: " VerticalAlignment="Center"/>
+                    <ComboBox x:Name="StatusBox" Width="200" FontSize="20" HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center">
+                        <ComboBoxItem Content="Новый"/>
+                        <ComboBoxItem Content="Завершен"/>
+                    </ComboBox>
+                </StackPanel>
+                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="574 5 0 0">
+                <Label FontSize="20"
+                       Content="Дата доставки: " VerticalAlignment="Center"/>
+                <DatePicker x:Name="DeliveryDateBox" Width="200" FontSize="20" HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <Button x:Name="EditOrderBtn" Content="Применить изменения" Margin="15" 
+                    FontSize="20" HorizontalAlignment="Center" IsEnabled="False"
+                    Click="EditOrderBtn_OnClick"/>
+        </StackPanel>
+        
+        <Button x:Name="BackBtn" Content="В главное меню" Margin="5" 
+                Grid.Column="2" Grid.Row="2" FontSize="20"
+                Click="BackBtn_OnClick"/>
     </Grid>
 </Window>

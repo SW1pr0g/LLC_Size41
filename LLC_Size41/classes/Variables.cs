@@ -9,6 +9,7 @@ namespace LLC_Size41.classes
         public static bool authClosed = true;
         public static bool mainClosed = true;
         public static bool productClosed = true;
+        public static bool specialClosed = true;
         public static bool orderClosed = true;
         public static bool showproductClosed = true;
         public static bool trashClosed = true;

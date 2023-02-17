@@ -5,9 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:LLC_Size41"
         xmlns:classes="clr-namespace:LLC_Size41.classes"
-
         mc:Ignorable="d"
-        Title="Товары" FontFamily="Comic Sans MS" 
+        Title="Заказы" FontFamily="Comic Sans MS" 
         WindowStartupLocation="CenterScreen"
         Height="610" Width="1000" 
         Closing="Order_OnClosing">

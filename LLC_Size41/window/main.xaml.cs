@@ -104,5 +104,12 @@ namespace LLC_Size41.window
             new order().Show();
             Close();
         }
+
+        private void SpecialAdds_OnClick(object sender, RoutedEventArgs e)
+        {
+            classes.Variables.mainClosed = true;
+            new special().Show();
+            Close();
+        }
     }
 }

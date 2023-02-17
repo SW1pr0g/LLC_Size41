@@ -1,0 +1,37 @@
+﻿<Window x:Class="LLC_Size41.window.special"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:LLC_Size41.window"
+        mc:Ignorable="d"
+        Title="Специальные возможности" FontFamily="Comic Sans MS" 
+        WindowStartupLocation="CenterScreen"
+        Height="200" Width="600" 
+        Closing="Special_OnClosing">
+    <Grid>
+        <StackPanel>
+            <Label x:Name="CountGrid" FontSize="20"
+                   Content="Создание отчёта" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Label x:Name="StartLabel" FontSize="15"
+                           Content="Начальная дата:" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <DatePicker x:Name="DateStart" Margin="10 0" FontSize="15"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Label x:Name="EndLabel" FontSize="15"
+                           Content="Конечная дата:" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <DatePicker x:Name="DateEnd" Margin="10 0" FontSize="15"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10" >
+                <Button x:Name="CreateOtchet" Content="Создать" FontSize="20" HorizontalAlignment="Center"
+                        Click="CreateOtchet_OnClick"/>
+                <Button x:Name="BackBtn" Content="В главное меню"  
+                        Grid.Column="2" Grid.Row="2" FontSize="20"
+                        Click="BackBtn_OnClick" Margin="80 0 10 0"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

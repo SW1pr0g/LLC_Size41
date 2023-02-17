@@ -32,7 +32,7 @@
             <Button x:Name="OrderList" Content="Заказы" Visibility="Hidden"
                     Click="OrderList_OnClick"  />
             <Button x:Name="SpecialAdds" Content="Специальные возможности" Visibility="Hidden"
-                    Click="ProductList_OnClick"/>
+                    Click="SpecialAdds_OnClick"/>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <Label Content="ООО '41 Размер'" FontSize="25" Margin="15"

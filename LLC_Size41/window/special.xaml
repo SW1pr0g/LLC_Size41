@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Специальные возможности" FontFamily="Comic Sans MS" 
         WindowStartupLocation="CenterScreen"
-        Height="200" Width="600" 
+        Height="200" Width="600" ResizeMode="CanMinimize"
         Closing="Special_OnClosing">
     <Grid>
         <StackPanel>
@@ -17,20 +17,20 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                     <Label x:Name="StartLabel" FontSize="15"
                            Content="Начальная дата:" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                    <DatePicker x:Name="DateStart" Margin="10 0" FontSize="15"/>
+                    <DatePicker x:Name="DateStart" Margin="10 0" FontSize="15" Background="#CCFF99"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                     <Label x:Name="EndLabel" FontSize="15"
                            Content="Конечная дата:" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                    <DatePicker x:Name="DateEnd" Margin="10 0" FontSize="15"/>
+                    <DatePicker x:Name="DateEnd" Margin="10 0" FontSize="15" Background="#CCFF99"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10" >
                 <Button x:Name="CreateOtchet" Content="Создать" FontSize="20" HorizontalAlignment="Center"
-                        Click="CreateOtchet_OnClick"/>
+                        Click="CreateOtchet_OnClick" Background="#CC6600"/>
                 <Button x:Name="BackBtn" Content="В главное меню"  
                         Grid.Column="2" Grid.Row="2" FontSize="20"
-                        Click="BackBtn_OnClick" Margin="80 0 10 0"/>
+                        Click="BackBtn_OnClick" Margin="80 0 10 0" Background="#CCFF99"/>
             </StackPanel>
         </StackPanel>
     </Grid>

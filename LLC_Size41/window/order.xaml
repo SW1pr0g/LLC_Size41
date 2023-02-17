@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LLC_Size41"
         xmlns:classes="clr-namespace:LLC_Size41.classes"
         mc:Ignorable="d"
-        Title="Заказы" FontFamily="Comic Sans MS" 
+        Title="Заказы" FontFamily="Comic Sans MS" ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
         Height="610" Width="1000" 
         Closing="Order_OnClosing">
@@ -40,7 +40,7 @@
                     <Label FontSize="20"
                            Content="Сортировка: " VerticalAlignment="Center"/>
                     <ComboBox x:Name="SortBox" Width="325" FontSize="20" HorizontalContentAlignment="Center"
-                              VerticalContentAlignment="Center" SelectedIndex="0">
+                              VerticalContentAlignment="Center" SelectedIndex="0" Background="#CCFF99">
                         <ComboBoxItem Content="Нет сортировки" LostFocus="SortBoxItem_OnLostFocus"/>
                         <ComboBoxItem Content="Статус заказа(сначала завершённые)" LostFocus="SortBoxItem_OnLostFocus"/>
                         <ComboBoxItem Content="Статус заказа(сначала новые)" LostFocus="SortBoxItem_OnLostFocus"/>
@@ -50,7 +50,7 @@
                     <Label FontSize="20"
                            Content="Статус заказа: " VerticalAlignment="Center"/>
                     <ComboBox x:Name="StatusBox" Width="200" FontSize="20" HorizontalContentAlignment="Center"
-                              VerticalContentAlignment="Center">
+                              VerticalContentAlignment="Center" Background="#CCFF99">
                         <ComboBoxItem Content="Новый"/>
                         <ComboBoxItem Content="Завершен"/>
                     </ComboBox>
@@ -61,15 +61,15 @@
                 <Label FontSize="20"
                        Content="Дата доставки: " VerticalAlignment="Center"/>
                 <DatePicker x:Name="DeliveryDateBox" Width="200" FontSize="20" HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"/>
+                          VerticalContentAlignment="Center" Background="#CCFF99"/>
             </StackPanel>
             <Button x:Name="EditOrderBtn" Content="Применить изменения" Margin="15" 
                     FontSize="20" HorizontalAlignment="Center" IsEnabled="False"
-                    Click="EditOrderBtn_OnClick"/>
+                    Click="EditOrderBtn_OnClick" Background="#CC6600"/>
         </StackPanel>
         
         <Button x:Name="BackBtn" Content="В главное меню" Margin="5" 
                 Grid.Column="2" Grid.Row="2" FontSize="20"
-                Click="BackBtn_OnClick"/>
+                Click="BackBtn_OnClick" Background="#CCFF99"/>
     </Grid>
 </Window>

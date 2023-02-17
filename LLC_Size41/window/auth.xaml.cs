@@ -15,6 +15,10 @@ namespace LLC_Size41.window
             InitializeComponent();
             classes.Variables.authClosed = true;
             classes.Variables.trash.Clear();
+            classes.Variables.surname = String.Empty;
+            classes.Variables.name = String.Empty;
+            classes.Variables.patronymic = String.Empty;
+            classes.Variables.trashVisible = false;
         }
 
         private void auth_Closing(object sender, System.ComponentModel.CancelEventArgs e)

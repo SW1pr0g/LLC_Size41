@@ -62,6 +62,8 @@
     </ApplicationDefinition>
     <Compile Include="classes\TrashItem.cs" />
     <Compile Include="classes\window-action.cs" />
+    <Compile Include="classes\wordHelper.cs" />
+    <Compile Include="classes\order_print.cs" />
     <Compile Include="window\auth.xaml.cs">
       <DependentUpon>auth.xaml</DependentUpon>
     </Compile>
@@ -167,6 +169,17 @@
     <Resource Include="images\product\А112Т4.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

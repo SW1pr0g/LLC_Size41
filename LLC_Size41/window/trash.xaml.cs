@@ -4,6 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -20,6 +21,12 @@ namespace LLC_Size41.window
         {
             InitializeComponent();
             LoadData();
+            if (classes.Variables.role != "Гость")
+            {
+                SurnameBox.IsEnabled = false;
+                NameBox.IsEnabled = false;
+                PatronymicBox.IsEnabled = false;
+            }
         }
 
         private void BackBtn_OnClick(object sender, RoutedEventArgs e)
@@ -30,7 +37,81 @@ namespace LLC_Size41.window
 
         private void OrderBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Распечатка!");
+            if (SurnameBox.Text == String.Empty || NameBox.Text == String.Empty || PatronymicBox.Text == String.Empty ||
+                PickPointBox.SelectedIndex == -1)
+            {
+                string str = classes.Variables.role;
+                MessageBox.Show("Ошибка! Не выбран пункт выдачи или не заполнены поля ФИО.");
+                return;
+            }
+            else
+            {
+                if (NameBox.IsEnabled == true)
+                {
+                    using (MySqlConnection conn = new MySqlConnection(classes.Variables.ConnStr))
+                    {
+                        conn.Open();
+                        
+                        string passwd = String.Empty;
+                        string[] arr = { "1","2","3","4","5","6","7","8","9","B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Z","b","c","d","f","g","h","j","k","m","n","p","q","r","s","t","v","w","x","z","A","E","U","Y","a","e","i","o","u","y" };
+                        Random rnd = new Random();
+                        for (int i = 0; i < 7; i ++)
+                        {
+                            passwd += arr[rnd.Next(0, 57)];
+                        }
+                        
+                        char[] vowels = "aeuoyi".ToCharArray();
+                        char[] consonants = "qwrtpsdfghjklzxcvbnm".ToCharArray();
+
+                        
+                        StringBuilder newNick = new StringBuilder();
+                        
+                        while (newNick.Length < 15)
+                        {
+                            bool firstVowel = rnd.Next(0, 2) == 0 ? true : false;
+
+                            if (firstVowel)
+                            {
+                                newNick.Append(vowels[rnd.Next(0, vowels.Length)]);
+                                newNick.Append(consonants[rnd.Next(0, consonants.Length)]);
+                            }
+                            else
+                            {
+                                newNick.Append(consonants[rnd.Next(0, consonants.Length)]);
+                                newNick.Append(vowels[rnd.Next(0, vowels.Length)]);
+                            }
+                        }
+                        if (15 % 2 != 0) newNick.Remove(newNick.Length - 1, 1);
+
+                        newNick[0] = char.ToUpper(newNick[0]);
+
+                        string sql = String.Format(@"INSERT INTO user (user_surname, user_name, user_patronymic,
+                                            user_login, user_password, user_role) VALUES
+                                                ('{0}', '{1}', '{2}', '{3}', '{4}', 'Клиент')", SurnameBox.Text, NameBox.Text, PatronymicBox.Text, newNick, passwd);
+                        using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                else
+                {
+                    using (MySqlConnection conn = new MySqlConnection(classes.Variables.ConnStr))
+                    {
+                        conn.Open();
+                        string sql = String.Format(@"INSERT INTO order");
+                        using (MySqlCommand)
+                    }
+                    string[] data = new string[Convert.ToInt32(command.ExecuteScalar())];
+
+                    //сохраняем отчёт
+                    wordOtchets_print.otchetClients_print(Environment.CurrentDirectory + "\\wordDocs\\otchetClients_print.docx", data, NameAdmin.Text);
+                    commandString = "UPDATE otchets_quantity SET quantity = " + (Convert.ToInt32(otchets_quantity.Text) + 1).ToString() + " WHERE id = 1";
+                    command.CommandText = commandString;
+                    command.ExecuteReader();
+                    command.Connection.Close();
+                }
+            }
         }
 
         private void LoadData()
@@ -60,8 +141,8 @@ namespace LLC_Size41.window
             DataTable dt = ToDataTable(classes.Variables.trash);
             OrderGrid.ItemsSource = dt.DefaultView;
 
-            OrderDate.Content += DateTime.Now.ToString("dd.MM.yyyy");
-            OrderDeliveryDate.Content += DateTime.Now.AddDays(3).ToString("dd.MM.yyyy");
+            OrderDate.Content = "Дата: " + DateTime.Now.ToString("dd.MM.yyyy");
+            OrderDeliveryDate.Content = "Дата доставки: " + DateTime.Now.AddDays(3).ToString("dd.MM.yyyy");
             
             using (MySqlConnection conn = new MySqlConnection(classes.Variables.ConnStr))
             {
@@ -73,12 +154,24 @@ namespace LLC_Size41.window
                     {
                         while (reader.Read())
                         {
-                            OrderNum.Content += (reader.GetInt32(0) + 1).ToString();
-                            OrderCode.Content += (reader.GetInt32(1) + 1).ToString();
+                            OrderNum.Content = "Номер заказа: " + (reader.GetInt32(0) + 1).ToString();
+                            OrderCode.Content = "Код: " + (reader.GetInt32(1) + 1).ToString();
                         }
                     }
                 }
             }
+
+            double fullprice = 0.0;
+            for (int i = 0; i < classes.Variables.trash.Count(); i++)
+            {
+                fullprice += (Convert.ToDouble(classes.Variables.trash[i].Price) *
+                              Convert.ToDouble(classes.Variables.trash[i].Count)) -
+                             ((Convert.ToDouble(classes.Variables.trash[i].Price) *
+                               Convert.ToDouble(classes.Variables.trash[i].Count)) *
+                              (Convert.ToDouble(classes.Variables.trash[i].Discount) / 100));
+            }
+
+            FullPrice.Content = "Полная сумма: " +  fullprice.ToString();
         }
 
         private void DeleteFromTrash_OnClick(object sender, RoutedEventArgs e)

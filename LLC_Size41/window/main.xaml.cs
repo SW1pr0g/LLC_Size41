@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace LLC_Size41.window
@@ -9,8 +10,8 @@ namespace LLC_Size41.window
         {
             InitializeComponent();
             LoadUserData();
-            checkPrivilegies();           
-            
+            checkPrivilegies();
+            classes.Variables.mainClosed = false;
         }
 
         private void exitUser_Click(object sender, RoutedEventArgs e)
@@ -19,8 +20,9 @@ namespace LLC_Size41.window
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.Yes)
             {
+                classes.Variables.mainClosed = true;
                 new auth().Show();
-                this.Close();
+                Close();
             }                
         }
         private void checkPrivilegies()
@@ -30,9 +32,13 @@ namespace LLC_Size41.window
                 case "Менеджер":
                     ShowProduct.Visibility = Visibility.Visible;
                     ProductList.Visibility = Visibility.Visible;
+                    OrderList.Visibility = Visibility.Visible;
                     break;
                 case "Администратор":
+                    ShowProduct.Height = 0;
                     ProductList.Visibility = Visibility.Visible;
+                    OrderList.Visibility = Visibility.Visible;
+                    SpecialAdds.Visibility = Visibility.Visible;
                     break;
                 default:
                     ShowProduct.Visibility = Visibility.Visible;
@@ -61,20 +67,35 @@ namespace LLC_Size41.window
 
         private void ShowProduct_Click(object sender, RoutedEventArgs e)
         {
+            classes.Variables.mainClosed = true;
             new showproduct().Show();
-            this.Close();
+            Close();
         }
 
         private void ProductList_OnClick(object sender, RoutedEventArgs e)
         {
+            classes.Variables.mainClosed = true;
             new product().Show();
-            this.Close();
+            Close();
         }
 
         private void TrashBtn_OnClick(object sender, RoutedEventArgs e)
         {
+            classes.Variables.mainClosed = true;
             new trash().Show();
-            this.Close();
+            Close();
+        }
+
+        private void Main_OnClosing(object sender, CancelEventArgs e)
+        {
+            if (classes.Variables.mainClosed == false)
+            {
+                if (MessageBox.Show("Вы действительно хотите закрыть приложение?",
+                        "Выход из приложения", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    e.Cancel = true;
+                else
+                    classes.Variables.mainClosed = true;
+            } 
         }
     }
 }

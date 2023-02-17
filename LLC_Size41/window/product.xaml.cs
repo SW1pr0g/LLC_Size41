@@ -101,7 +101,6 @@ namespace LLC_Size41.window
                         while (reader.Read())
                         {
                             current_article = reader.GetString(0);
-                            ArticleBox.Text = current_article;
                             NameBox.Text = reader.GetString(1);
                             PriceBox.Text = reader.GetString(2);
 
@@ -170,7 +169,6 @@ namespace LLC_Size41.window
             NameBox.Clear();
             PriceBox.Clear();
             ManufacturerBox.SelectedIndex = -1;
-            ArticleBox.Clear();
             DiscountBox.Clear();
             QuantityBox.Clear();
             SupplierBox.SelectedIndex = -1;
@@ -192,23 +190,35 @@ namespace LLC_Size41.window
             using (MySqlConnection conn = new MySqlConnection(classes.Variables.ConnStr))
             {
                 conn.Open();
+                Random rnd = new Random();
+                string article = String.Empty;
+                char[] ArticleSymbol = new[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+
+                article += ArticleSymbol[rnd.Next(0, 25)];
+                article += rnd.Next(0, 9).ToString();
+                article += rnd.Next(0, 5).ToString();
+                article += rnd.Next(0, 8).ToString();
+                article += ArticleSymbol[rnd.Next(0, 25)];
+                article += rnd.Next(0, 6).ToString();
+
                 string sql = String.Format(@"INSERT INTO product (product_article, product_name, product_cost, product_manufacturerID, 
                                                                     product_supplierID, product_categoryID, product_discount, product_quantityinstock,
                      product_desc, product_photoname) VALUES('{0}', '{1}', {2}, 
                                                              (SELECT manufacturer_id FROM manufacturer WHERE manufacturer_name = '{3}'),
                                                              (SELECT supplier_id FROM supplier WHERE supplier_name = '{4}'),
                                                              (SELECT category_id FROM category WHERE category_name = '{5}'),
-                                                             {6}, {7}, '{8}', '{9}');", ArticleBox.Text, NameBox.Text, PriceBox.Text, ManufacturerBox.Text, SupplierBox.Text, CategoryBox.Text,
+                                                             {6}, {7}, '{8}', '{9}');", article, NameBox.Text, PriceBox.Text, ManufacturerBox.Text, SupplierBox.Text, CategoryBox.Text,
                     DiscountBox.Text, QuantityBox.Text, DescBox.Text, image_name);
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
                     try
                     {
                         cmd.ExecuteNonQuery();
+                        MessageBox.Show("Добавлено!");
                     }
                     catch (MySqlException)
                     {
-                        MessageBox.Show("Ошибка! Найдено похожее имя артикула, описания.", "Проверка заполнения", MessageBoxButton.OK,
+                        MessageBox.Show("Ошибка! Найдено похожее имя описания.", "Проверка заполнения", MessageBoxButton.OK,
                             MessageBoxImage.Error);
                         return;
                     }
@@ -217,6 +227,7 @@ namespace LLC_Size41.window
                         File.Copy(image_path, Directory.GetCurrentDirectory() + "\\images\\product\\" + image_name, true);
                 }
             }
+            ClearBtn_OnClick(null, null);
         }
 
         private void EditBtn_OnClick(object sender, RoutedEventArgs e)
@@ -239,13 +250,14 @@ namespace LLC_Size41.window
                                                                     product_supplierID = (SELECT supplier_id FROM supplier WHERE supplier_name = '{5}'),
                                                                     product_categoryID = (SELECT category_id FROM category WHERE category_name = '{6}'),
                                                                     product_discount = {7}, product_quantityinstock = {8}, product_desc = '{9}', product_photoname = '{10}'
-                   WHERE product_article = '{0}';", current_article, ArticleBox.Text, NameBox.Text, PriceBox.Text, ManufacturerBox.Text, SupplierBox.Text, CategoryBox.Text,
+                   WHERE product_article = '{0}';", current_article, current_article, NameBox.Text, PriceBox.Text, ManufacturerBox.Text, SupplierBox.Text, CategoryBox.Text,
                         DiscountBox.Text, QuantityBox.Text, DescBox.Text, image_name);
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
                         try
                         {
                             cmd.ExecuteNonQuery();
+                            MessageBox.Show("Отредактировано!");
                         }
                         catch (MySqlException)
                         {
@@ -275,8 +287,16 @@ namespace LLC_Size41.window
                     string sql = String.Format("DELETE FROM product WHERE product_article = '{0}';", current_article);
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                     {
-                        cmd.ExecuteNonQuery();
-                        FillData();
+                        try
+                        {
+                            cmd.ExecuteNonQuery();
+                            FillData();
+                            MessageBox.Show("Удалено!");
+                        }
+                        catch (MySqlException)
+                        {
+                            MessageBox.Show("Товар находится в заказе! Удаление невозможно!");
+                        }
                     }
                 }
             }
@@ -311,7 +331,7 @@ namespace LLC_Size41.window
         private bool CheckFields()
         {
             bool res = false;
-            if (ArticleBox.Text == String.Empty || NameBox.Text == String.Empty || PriceBox.Text == String.Empty ||
+            if (NameBox.Text == String.Empty || PriceBox.Text == String.Empty ||
                 ManufacturerBox.Text == String.Empty || SupplierBox.Text == String.Empty ||
                 CategoryBox.Text == String.Empty || DiscountBox.Text == String.Empty ||
                 QuantityBox.Text == String.Empty || DescBox.Text == String.Empty)

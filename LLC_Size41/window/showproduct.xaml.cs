@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Windows;
@@ -17,12 +18,14 @@ namespace LLC_Size41.window
         {
             InitializeComponent();
             FillData();
+            Variables.showproductClosed = false;
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {            
+            Variables.showproductClosed = true;
             new main().Show();
-            this.Close();
+            Close();
         }
         private void FillData()
         {
@@ -97,7 +100,7 @@ namespace LLC_Size41.window
                 if (Convert.ToInt32(QuantityBox.Text) > a.Count)
                 {
                     int i = Variables.trash.IndexOf(a);
-                    Variables.trash[i] = new TrashItem { ArticleNum = ArticleBox.Text, Price = Convert.ToDouble(PriceBox.Text), Discount = Convert.ToInt32(DiscountBox.Text), Manufacturer = ManufacturerBox.Text, Count = a.Count+1, };
+                    Variables.trash[i] = new TrashItem { ArticleNum = ArticleBox.Text, Name = NameBox.Text, Price = Convert.ToDouble(PriceBox.Text), Discount = Convert.ToInt32(DiscountBox.Text), Manufacturer = ManufacturerBox.Text, Count = a.Count+1, };
                     MessageBox.Show(String.Format("Товар под артикулом {0} добавлен в корзину!", ArticleBox.Text));
                 }
                 else
@@ -107,7 +110,7 @@ namespace LLC_Size41.window
             {
                 if (Convert.ToInt32(QuantityBox.Text) > 1)
                 {
-                    Variables.trash.Add(new TrashItem { ArticleNum = ArticleBox.Text, Price = Convert.ToDouble(PriceBox.Text), Discount = Convert.ToInt32(DiscountBox.Text), Manufacturer = ManufacturerBox.Text, Count = 1, });
+                    Variables.trash.Add(new TrashItem { ArticleNum = ArticleBox.Text, Name = NameBox.Text, Price = Convert.ToDouble(PriceBox.Text), Discount = Convert.ToInt32(DiscountBox.Text), Manufacturer = ManufacturerBox.Text, Count = 1, });
                     MessageBox.Show(String.Format("Товар под артикулом {0} добавлен в корзину!", ArticleBox.Text));
                     classes.Variables.trashVisible = true;
                 }
@@ -155,6 +158,18 @@ namespace LLC_Size41.window
                     }
                 }
             }
+        }
+
+        private void Showproduct_OnClosing(object sender, CancelEventArgs e)
+        {
+            if (classes.Variables.showproductClosed == false)
+            {
+                if (MessageBox.Show("Вы действительно хотите закрыть приложение?",
+                        "Выход из приложения", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    e.Cancel = true;
+                else
+                    Variables.showproductClosed = true;
+            } 
         }
     }
 }

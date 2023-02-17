@@ -13,7 +13,7 @@ namespace LLC_Size41.window
         public auth()
         {
             InitializeComponent();
-            classes.Variables.authClosed = true;
+            classes.Variables.authClosed = false;
             classes.Variables.trash.Clear();
             classes.Variables.surname = String.Empty;
             classes.Variables.name = String.Empty;
@@ -26,8 +26,10 @@ namespace LLC_Size41.window
             if (classes.Variables.authClosed == false)
             {
                 if (MessageBox.Show("Вы действительно хотите закрыть приложение?",
-                "Выход из приложения", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        "Выход из приложения", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                     e.Cancel = true;
+                else
+                    classes.Variables.authClosed = true;
             }            
         }
 
@@ -37,7 +39,7 @@ namespace LLC_Size41.window
             {                
                 try
                 {
-                    conn.Open();                   
+                    conn.Open();                 
 
                 }
                 catch (MySqlException)
@@ -68,15 +70,16 @@ namespace LLC_Size41.window
                                 classes.Variables.name = reader.GetString(1);
                                 classes.Variables.patronymic = reader.GetString(2);
                                 classes.Variables.role = reader.GetString(3);
+                                classes.Variables.authClosed = true;
                                 new main().Show();
-                                this.Close();
+                                Close();
                             }
                         }
                         else
                         {
                             MessageBox.Show("Ошибка! Неправильный логин или пароль.");
                             Captha.Visibility = Visibility.Visible;
-                            this.Height = 600;
+                            Height = 600;
                             _capthaEnabled = true;
                             PutCapthaText();
                         }
@@ -91,8 +94,9 @@ namespace LLC_Size41.window
             classes.Variables.authClosed = true;
             classes.Variables.name = String.Empty;
             classes.Variables.role = "Гость";
+            classes.Variables.authClosed = true;
             new main().Show();
-            this.Close(); 
+            Close();
         }
         private void PutCapthaText()
         {

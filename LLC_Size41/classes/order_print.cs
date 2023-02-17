@@ -9,10 +9,10 @@ using Microsoft.Office.Interop.Word;
 
 namespace AIS_exchangeOffice.classes
 {
-    public class order_print          
+    public static class order_print          
     {
 
-        public void start(string file_path, string[] data, string admin)
+        public static void Start(string file_path, string[] data, string OrderNum, string FIO, string OrderDate, string DeliveryDate, string TotalSumm, string PickupAddr)
         {
             try
             {
@@ -27,13 +27,11 @@ namespace AIS_exchangeOffice.classes
 
                     Table t = doc.Tables[2];
                     t.Rows.Add(t.Rows[1]);
-                    t.Cell(1, 1).Range.Text = "инд. номер";
-                    t.Cell(1, 2).Range.Text = "фамилия";
-                    t.Cell(1, 3).Range.Text = "имя";
-                    t.Cell(1, 4).Range.Text = "отчество";
-                    t.Cell(1, 5).Range.Text = "дата рождения";
-                    t.Cell(1, 6).Range.Text = "серия паспорта";
-                    t.Cell(1, 7).Range.Text = "номер паспорта";
+                    t.Cell(1, 1).Range.Text = "название";
+                    t.Cell(1, 2).Range.Text = "кол-во";
+                    t.Cell(1, 3).Range.Text = "цена(руб)";
+                    t.Cell(1, 4).Range.Text = "скидка(руб/%)";
+                    t.Cell(1, 5).Range.Text = "всего(руб)";
                     
                     for (int i = 0; i < data.Length; i++)
                     {
@@ -44,18 +42,18 @@ namespace AIS_exchangeOffice.classes
                         t.Cell(i + 2, 3).Range.Text = data_edit[2];
                         t.Cell(i + 2, 4).Range.Text = data_edit[3];
                         t.Cell(i + 2, 5).Range.Text = data_edit[4];
-                        t.Cell(i + 2, 6).Range.Text = data_edit[5];
-                        t.Cell(i + 2, 7).Range.Text = data_edit[6];
                     }
 
-                    Random rnd = new Random();
-                    string uidd = rnd.Next(99999, 1000000).ToString();
                     var items = new Dictionary<string, string>
-                {
-                    { "_<date_update>_", DateTime.Now.ToString() },
-                    { "_<number>_", uidd },
-                    { "_<admin_name>_", admin},
-                };
+                    {
+                        { "<number>", OrderNum },
+                        { "<order_date>", OrderDate },
+                        { "<order_deliverydate>", DeliveryDate },
+                        { "<client_name>", FIO },
+                        { "<totalSumm>", TotalSumm },
+                        { "<order_pickupaddr>", PickupAddr },
+                        { "<print_date>", DateTime.Now.ToString("hh:mm:ss dd.MM.yyyy") }
+                    };
                     Object missing = Type.Missing;
                     foreach (var item in items)
                     {
@@ -77,8 +75,8 @@ namespace AIS_exchangeOffice.classes
                             Format: false,
                             ReplaceWith: missing, Replace: replace);
                     }
-
-                    doc.SaveAs(Environment.CurrentDirectory + "\\wordDocs\\" + DateTime.Now.ToString("yyyMMdd_" + uidd) + "otchetClients.docx");
+                    
+                    doc.SaveAs(Environment.CurrentDirectory + "\\order_doc\\" + DateTime.Now.ToString("yyyMMdd_") + OrderNum + "order_print.docx");
                     app.Visible = true;
                 }
 

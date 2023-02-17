@@ -29,9 +29,6 @@
                     <ComboBoxItem Content="Мужская обувь"/>
                     <ComboBoxItem Content="Женская обувь"/>
                 </ComboBox>
-                <Label Content="Артикул" FontSize="20" Margin="20 0 0 0"/>
-                <TextBox x:Name="ArticleBox" Width="150" FontSize="20" HorizontalContentAlignment="Center"
-                          MaxLength="6" IsEnabled="True" Margin="0 0 0 0" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 5">
                 <Label Content="Наименование" FontSize="20"/>

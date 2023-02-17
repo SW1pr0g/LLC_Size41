@@ -5,7 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:LLC_Size41.window"
         mc:Ignorable="d" FontFamily="Comic Sans MS" WindowStartupLocation="CenterScreen"
-        Title="Главное окно" Height="450" Width="800">
+        Title="Главное окно" Height="450" Width="800" 
+        Closing="Main_OnClosing">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5"/>
@@ -27,6 +28,10 @@
             <Button x:Name="ShowProduct" Content="Просмотр товаров" Visibility="Hidden"
                     Click="ShowProduct_Click"/>
             <Button x:Name="ProductList" Content="Товары" Visibility="Hidden"
+                    Click="ProductList_OnClick"/>
+            <Button x:Name="OrderList" Content="Заказы" Visibility="Hidden"
+                    Click="ProductList_OnClick"  />
+            <Button x:Name="SpecialAdds" Content="Специальные возможности" Visibility="Hidden"
                     Click="ProductList_OnClick"/>
         </StackPanel>
         <StackPanel Grid.Column="1">

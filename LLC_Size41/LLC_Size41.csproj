@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\MySql.Data.dll</HintPath>
+      <HintPath>F:\_browser\exchangeOffice-main\bin\Debug\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -75,6 +75,9 @@
     <Compile Include="window\main.xaml.cs">
       <DependentUpon>main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="window\order.xaml.cs">
+      <DependentUpon>order.xaml</DependentUpon>
+    </Compile>
     <Compile Include="window\product.xaml.cs">
       <DependentUpon>product.xaml</DependentUpon>
     </Compile>
@@ -89,6 +92,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="window\main.xaml" />
+    <Page Include="window\order.xaml" />
     <Page Include="window\product.xaml" />
     <Page Include="window\showproduct.xaml">
       <SubType>Designer</SubType>
@@ -114,6 +118,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="exampleWord\order_print.docx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using MySql.Data.MySqlClient;
@@ -105,27 +106,27 @@ namespace LLC_Size41.window
             switch (value)
             {
                 case 1:
-                    var uriSource = new Uri(@"/LLC_Size41;component/images/product/captha1.png", UriKind.Relative);
+                    var uriSource = new Uri(Directory.GetCurrentDirectory() + "//images//captha//captha1.png", UriKind.Absolute);
                     CapthaImg.Source = new BitmapImage(uriSource);
                     capthaValue = "4K[j";
                     break;
                 case 2:
-                    var uriSource1 = new Uri(@"/LLC_Size41;component/images/captha/captha2.png", UriKind.Relative);
+                    var uriSource1 = new Uri(Directory.GetCurrentDirectory() + "//images//captha//captha2.png", UriKind.Absolute);
                     CapthaImg.Source = new BitmapImage(uriSource1);
                     capthaValue = "im4/";
                     break;
                 case 3:
-                    var uriSource2 = new Uri(@"/LLC_Size41;component/images/captha/captha3.png", UriKind.Relative);
+                    var uriSource2 = new Uri(Directory.GetCurrentDirectory() + "//images//captha//captha3.png", UriKind.Absolute);
                     CapthaImg.Source = new BitmapImage(uriSource2);
                     capthaValue = "][qc";
                     break;
                 case 4:
-                    var uriSource3 = new Uri(@"/LLC_Size41;component/images/captha/captha4.png", UriKind.Relative);
+                    var uriSource3 = new Uri(Directory.GetCurrentDirectory() + "//images//captha//captha4.png", UriKind.Absolute);
                     CapthaImg.Source = new BitmapImage(uriSource3);
                     capthaValue = "rkp(";
                     break;
                 default:
-                    var uriSource4 = new Uri(@"/LLC_Size41;component/images/captha/captha1.png", UriKind.Relative);
+                    var uriSource4 = new Uri(Directory.GetCurrentDirectory() + "//images//captha//captha1.png", UriKind.Absolute);
                     CapthaImg.Source = new BitmapImage(uriSource4);
                     capthaValue = "4K[j";
                     break;

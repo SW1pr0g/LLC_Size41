@@ -96,35 +96,68 @@ namespace LLC_Size41.window
                         }
                     }
                     string order_id = OrderNum.Content.ToString().Split(' ')[OrderNum.Content.ToString().Split(' ').Length - 1];
-                    string order_date = Convert.ToDateTime(OrderDate.Content.ToString().Split(' ')[OrderDate.Content.ToString().Split(' ').Length - 1]).ToString("yyyy-MM-dd");
-                    string order_deliverydate = Convert.ToDateTime(OrderDeliveryDate.Content.ToString().Split(' ')[OrderDeliveryDate.Content.ToString().Split(' ').Length - 1]).ToString("yyyy-MM-dd");
+                    
+                    string order_date = DateTime.ParseExact(
+                            OrderDate.Content.ToString().Split(' ')[OrderDate.Content.ToString().Split(' ').Length - 1],
+                            "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture)
+                        .ToString("yyyy-MM-dd");
+                    string order_deliverydate = DateTime.ParseExact(
+                            OrderDeliveryDate.Content.ToString().Split(' ')[OrderDeliveryDate.Content.ToString().Split(' ').Length - 1],
+                            "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture)
+                        .ToString("yyyy-MM-dd");
                     string order_code = OrderCode.Content.ToString().Split(' ')[OrderCode.Content.ToString().Split(' ').Length - 1];
 
-                    int i = OrderGrid.Items.Count;
-                    using (MySqlConnection conn = new MySqlConnection(Variables.ConnStr))
+                    using (MySqlConnection conn = new MySqlConnection(classes.Variables.ConnStr))
                     {
                         conn.Open();
 
-                        string sqlOrder = String.Format(@"INSERT INTO `order` (order_id, order_date, order_deliverydate, order_pickpointID, order_userID, order_code, order_status)
+                        string sql = String.Format(@"INSERT INTO `order` (order_id, order_date, order_deliverydate, order_pickpointID, order_userID, order_code, order_status)
                                                             VALUES ({0}, '{1}', '{2}', (SELECT pickpoint_id FROM pickpoint WHERE pickpoint_address = '{3}'), 
                                                             (SELECT user_id FROM user WHERE user_surname = '{4}'), {5}, '{6}');", order_id,
                                                             order_date, order_deliverydate, PickPointBox.Text, SurnameBox.Text, order_code
                                                             , "Новый");
-                        using (MySqlCommand cmd = new MySqlCommand(sqlOrder, conn))
+                        using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                         {
                             cmd.ExecuteNonQuery();
+                            Variables.surname = SurnameBox.Text;
+                            Variables.name = NameBox.Text;
+                            Variables.patronymic = PatronymicBox.Text;
                         }
-                        for (i = 0; i < OrderGrid.Items.Count; i++)
+
+                        string[] data = new string[OrderGrid.Items.Count];
+
+                        for (int i = 0; i < OrderGrid.Items.Count; i++)
                         {
+                            data[i] = ((DataRowView)OrderGrid.Items[i]).Row[1].ToString() + " " + ((DataRowView)OrderGrid.Items[0]).Row[5].ToString() +
+                                      " " + ((DataRowView)OrderGrid.Items[i]).Row[2].ToString() + " " +
+                                      (Convert.ToDouble(((DataRowView)OrderGrid.Items[i]).Row[2]) *
+                                       Convert.ToInt32(((DataRowView)OrderGrid.Items[i]).Row[5]) *
+                                       (Convert.ToDouble(((DataRowView)OrderGrid.Items[i]).Row[3]) / 100)).ToString() +
+                                      " " + (Convert.ToDouble(((DataRowView)OrderGrid.Items[i]).Row[2]) *
+                                             Convert.ToInt32(((DataRowView)OrderGrid.Items[i]).Row[5]) -
+                                             (Convert.ToDouble(((DataRowView)OrderGrid.Items[i]).Row[2]) *
+                                              Convert.ToInt32(((DataRowView)OrderGrid.Items[i]).Row[5]) *
+                                              (Convert.ToDouble(((DataRowView)OrderGrid.Items[i]).Row[3]) / 100)))
+                                      .ToString(); 
                             string for_article = ((DataRowView)OrderGrid.Items[i]).Row[0].ToString();
                             string for_productcount = ((DataRowView)OrderGrid.Items[i]).Row[5].ToString();
-                            string sqlOrderProduct = String.Format(@"INSERT INTO `orderproduct` (order_id, product_articlenumber, product_count)
+                            sql = String.Format(@"INSERT INTO `orderproduct` (order_id, product_articlenumber, product_count)
                                                             VALUES ({0}, '{1}', {2});", order_id, for_article, for_productcount);
-                            using (MySqlCommand cmd = new MySqlCommand(sqlOrderProduct, conn))
-                            {
+                            using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                            { 
                                 cmd.ExecuteNonQuery();
                             }
                         }
+                        Variables.trashVisible = false;
+                        Variables.trash.Clear();
+                        BackBtn_OnClick(null, null);
+                        
+                        order_print.Start(Environment.CurrentDirectory + "\\exampleWord\\order_print.docx", data,
+                            order_id,
+                            classes.Variables.surname + " " + classes.Variables.name[0] + "." +
+                            classes.Variables.patronymic[0] + ".", order_date, order_deliverydate,
+                            FullPrice.Content.ToString().Split(' ')[FullPrice.Content.ToString().Split(' ').Length - 1],
+                            PickPointBox.Text);
                     }
                 }
                 else

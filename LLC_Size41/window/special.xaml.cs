@@ -77,7 +77,10 @@ namespace LLC_Size41.window
                                 }
                             }
                             else
+                            {
                                 MessageBox.Show("По указанному промежутку времени нет заказов!");
+                                return;
+                            }
                         }
                     }
 
